@@ -7,8 +7,9 @@ require 'net/http'
 require 'openssl'
 require 'json'
 
-def request(url)
+def request(request_without_key,api_key)
 
+    url = request_without_key+api_key
     uri = URI(url) #URI es una funcion de RUBY que transforma a uri
     http = Net::HTTP.new(uri.host, uri.port) #Esta instruccion esta creando un elemento http y un puerto donde se pueda comunicar
     request = Net::HTTP::Get.new(uri) # request --> peticion
@@ -20,6 +21,3 @@ def request(url)
     return JSON.parse(response.read_body) #esto nos hace transformar el string que se retorna inmediatamente a un hash
 
 end
-
-#Este string url, hay que transformarlo a URI (uniform resource identifier)
-#print request(url)
